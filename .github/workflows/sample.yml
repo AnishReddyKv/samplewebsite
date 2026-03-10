@@ -4,7 +4,7 @@ on:
  push:
    branches:
      - main
-     workflow_dispatch:
+ workflow_dispatch:
 
 env:
   COMMIT_ID: 498125cbeb774ef56e969b5cec186323e5f846ea
