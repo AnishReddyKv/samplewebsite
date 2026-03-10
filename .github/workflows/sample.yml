@@ -6,6 +6,9 @@ on:
      - main
      workflow_dispatch:
 
+env:
+  DOCKERHUB_USERNAME: anish1080
+
 jobs:
   push_build_deploy:
      runs-on: ubuntu-latest
