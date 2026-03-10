@@ -8,6 +8,7 @@ on:
 
 env:
   COMMIT_ID: 498125cbeb774ef56e969b5cec186323e5f846ea
+  IMAGE_NAME: samplerepo
 
 jobs:
   push_build_deploy:
@@ -24,7 +25,7 @@ jobs:
          run: echo "${{ secrets.DOCKERHUB_USERNAME }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
        - name: Build image
-         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ .IMAGE_NAME }}:${{ env.COMMIT_ID }} .
+         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }} .
 
        - name: Tag latest
          run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
