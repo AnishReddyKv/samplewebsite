@@ -7,7 +7,7 @@ on:
      workflow_dispatch:
 
 env:
-  DOCKERHUB_USERNAME: anish1080
+  COMMIT_ID: 498125cbeb774ef56e969b5cec186323e5f846ea
 
 jobs:
   push_build_deploy:
