@@ -4,12 +4,31 @@ on:
  push:
    branches:
      - main
+     workflow_dispatch:
 
 jobs:
   push_build_deploy:
-     runs-on: ubuntu-22.04
+     runs-on: ubuntu-latest
 
      steps:
        - name: checkout samplewebsite Repository
          uses: actions/checkout@v3
+
+       - name: Set commit ID
+         run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+       - name: Login to Docker Hub
+         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ env.DOCKERHUB_USERNAME }} --password-stdin
+
+       - name: Build image
+         run: docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }} .
+
+       - name: Tag latest
+         run: docker tag ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }} ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+       - name: Push commit image
+         run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}
+
+       - name: Push latest image
+         run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
   
