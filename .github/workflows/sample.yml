@@ -1,0 +1,15 @@
+name: a sample workflow
+
+on:
+ push:
+   branches:
+     - main
+
+jobs:
+  push_build_deploy:
+     runs-on: ubuntu-22.04
+
+     steps:
+       - name: checkout samplewebsite Repository
+         uses: actions/checkout@v3
+  
