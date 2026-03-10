@@ -16,7 +16,7 @@ jobs:
 
      steps:
        - name: checkout samplewebsite Repository
-         uses: actions/checkout@v3
+         uses: actions/checkout@v4
 
        - name: Set commit ID
          run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV
